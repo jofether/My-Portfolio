@@ -1,10 +1,5 @@
 // ============================================================================
 // PORTFOLIO DATA
-// ----------------------------------------------------------------------------
-// Edit the values below to personalize your site. Every field marked with
-// [BRACKETS] is a placeholder — replace it with your real information.
-// This file is also used as a fallback/local source if Firestore is empty
-// or unreachable, so keep the `projects` array reasonably up to date.
 // ============================================================================
 
 export type Project = {
@@ -29,21 +24,20 @@ export type Experience = {
 
 export const PORTFOLIO_DATA = {
   personal: {
-    name: "[YOUR_NAME_HERE]",
-    title: "[YOUR_TITLE_HERE — e.g., Full Stack Engineer & UI Designer]",
-    tagline:
-      "[YOUR_TAGLINE_HERE — e.g., I build accessible, high-performance web applications.]",
+    name: "Jofether Sampollo Mendoza",
+    title: "Full-Stack Software Engineer",
+    tagline: "Building scalable backend architecture, cloud infrastructure, and AI-integrated applications.",
     bio: [
-      "[YOUR_BIO_PARAGRAPH_1 — Introduce yourself: who you are, what you specialize in, and how you got started building for the web.]",
-      "[YOUR_BIO_PARAGRAPH_2 — Talk about your engineering philosophy: how you approach problems, what quality bar you hold yourself to, and what kind of teams/projects excite you.]",
-      "[YOUR_BIO_PARAGRAPH_3 — Optional: mention interests outside of code, what you're currently learning, or your long-term goals.]",
+      "I am a software engineer who recently graduated in July 2026, specializing in robust application development and infrastructure. My technical foundation lies in integrating complex databases and cloud services to create seamless user experiences.",
+      "My engineering approach emphasizes reliable deployment and scalable architecture. I leverage tools like Docker for containerization and Google Cloud Platform for comprehensive service management, ensuring applications perform efficiently under load.",
+      "Beyond core full-stack development, I actively work with modern AI tools, including the Gemini API, to build intelligent, forward-thinking solutions."
     ],
-    location: "[YOUR_LOCATION_HERE — e.g., San Francisco, CA or Remote]",
+    location: "Candelaria, Calabarzon, Philippines",
     email: "[YOUR_EMAIL_HERE@example.com]",
-    github: "https://github.com/[YOUR_GITHUB_USERNAME]",
+    github: "https://github.com/jofether",
     linkedin: "https://linkedin.com/in/[YOUR_LINKEDIN_USERNAME]",
     twitter: "https://twitter.com/[YOUR_TWITTER_USERNAME]",
-    resumeUrl: "/resume.pdf", // Place your résumé PDF in /public and update this path
+    resumeUrl: "/resume.pdf", 
   },
 
   skills: [
@@ -54,88 +48,81 @@ export const PORTFOLIO_DATA = {
         "Next.js",
         "TypeScript",
         "Tailwind CSS",
-        "Framer Motion",
-        "[ADD_SKILL]",
+        "Framer Motion"
       ],
     },
     {
-      category: "Backend",
+      category: "Backend & Cloud",
       items: [
         "Node.js",
-        "Express",
         "Firebase",
-        "PostgreSQL",
-        "REST APIs",
-        "[ADD_SKILL]",
+        "Google Cloud Platform (GCP)",
+        "Database Management",
+        "REST APIs"
       ],
     },
     {
-      category: "Tools & DevOps",
-      items: ["Git", "Docker", "Vercel", "Figma", "Jest", "[ADD_SKILL]"],
+      category: "Tools, DevOps & AI",
+      items: [
+        "Git", 
+        "GitHub Actions", 
+        "Docker", 
+        "Gemini API", 
+        "Zotero"
+      ],
     },
   ],
 
-  // NOTE: these are used as the fallback/seed data. Live data is fetched from
-  // the Firestore "projects" collection in components/Projects.tsx, and this
-  // array is used automatically if that fetch fails or returns nothing.
   projects: [
     {
       id: "project-1",
-      title: "[PROJECT_1_NAME]",
-      description:
-        "[PROJECT_1_SHORT_DESCRIPTION — e.g., A real-time SaaS dashboard for tracking server analytics.]",
-      longDescription:
-        "[PROJECT_1_FULL_DETAILS — What problem did it solve? What architecture did you use? What were the results?]",
-      technologies: ["Next.js", "Tailwind CSS", "Firebase", "TypeScript"],
-      imageUrl:
-        "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=Project+1+Preview",
-      liveUrl: "https://[PROJECT_1_LIVE_URL].com",
-      githubUrl: "https://github.com/[YOUR_GITHUB_USERNAME]/[PROJECT_1_REPO]",
+      title: "SmartQuiz",
+      description: "A comprehensive application featuring deep integration with Firebase services.",
+      longDescription: "Managed end-to-end development via GitHub, integrating Firebase for real-time data handling, database services, and hosting.",
+      technologies: ["Firebase", "GitHub Actions", "Next.js"],
+      imageUrl: "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=SmartQuiz",
+      liveUrl: "https://[SMARTQUIZ_LIVE_URL].com",
+      githubUrl: "https://github.com/jofether/SmartQuiz",
       featured: true,
     },
     {
       id: "project-2",
-      title: "[PROJECT_2_NAME]",
-      description:
-        "[PROJECT_2_SHORT_DESCRIPTION — e.g., E-commerce store with integrated Stripe payments.]",
-      longDescription: "[PROJECT_2_FULL_DETAILS]",
-      technologies: ["React", "Node.js", "Tailwind CSS"],
-      imageUrl:
-        "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=Project+2+Preview",
-      liveUrl: "https://[PROJECT_2_LIVE_URL].com",
-      githubUrl: "https://github.com/[YOUR_GITHUB_USERNAME]/[PROJECT_2_REPO]",
+      title: "CryptoCrafters",
+      description: "Collaborative software development project focused on secure data architecture.",
+      longDescription: "Engineered robust backend database integrations to handle complex data structures and team collaboration workflows.",
+      technologies: ["Backend Architecture", "Database Management", "Node.js"],
+      imageUrl: "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=CryptoCrafters",
+      liveUrl: "https://[CRYPTOCRAFTERS_LIVE_URL].com",
+      githubUrl: "https://github.com/jofether/CryptoCrafters",
       featured: true,
     },
     {
       id: "project-3",
-      title: "[PROJECT_3_NAME]",
-      description:
-        "[PROJECT_3_SHORT_DESCRIPTION — e.g., AI-powered content generator CLI tool.]",
-      longDescription: "[PROJECT_3_FULL_DETAILS]",
-      technologies: ["Python", "TypeScript", "OpenAI API"],
-      imageUrl:
-        "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=Project+3+Preview",
-      liveUrl: "https://[PROJECT_3_LIVE_URL].com",
-      githubUrl: "https://github.com/[YOUR_GITHUB_USERNAME]/[PROJECT_3_REPO]",
+      title: "VistaLingua",
+      description: "Software solution leveraging advanced cloud integration.",
+      longDescription: "Developed reliable performance architectures utilizing extensive database management and seamless cloud service integrations.",
+      technologies: ["GCP", "Cloud Integration", "TypeScript"],
+      imageUrl: "https://via.placeholder.com/600x400/1e1e2e/ffffff?text=VistaLingua",
+      liveUrl: "https://[VISTALINGUA_LIVE_URL].com",
+      githubUrl: "https://github.com/jofether/VistaLingua",
       featured: false,
     },
   ] as Project[],
 
   experience: [
     {
-      role: "[YOUR_ROLE_TITLE — e.g., Frontend Developer]",
-      company: "[COMPANY_NAME]",
-      period: "[2023 — Present]",
-      description:
-        "[KEY_RESPONSIBILITIES_AND_ACHIEVEMENTS — Highlight metrics, tech used, and impact.]",
-      tech: ["React", "Tailwind CSS", "Next.js"],
+      role: "Software Engineering Intern",
+      company: "Center for AI and Smart Technologies",
+      period: "June 2025 — July 2025",
+      description: "Developed and integrated smart technology solutions, optimizing application performance and collaborating on AI-driven feature implementations.",
+      tech: ["AI Integration", "Cloud Services", "Software Development"],
     },
     {
-      role: "[PREVIOUS_ROLE_TITLE — e.g., Web Developer Intern]",
-      company: "[PREVIOUS_COMPANY_NAME]",
-      period: "[2022 — 2023]",
-      description: "[KEY_RESPONSIBILITIES_AND_ACHIEVEMENTS]",
-      tech: ["JavaScript", "HTML/CSS", "Git"],
+      role: "Managing Head Trainee",
+      company: "PCAPI R4A Chapter",
+      period: "February 2026",
+      description: "Completed intensive eight-hour training seminar focusing on operational compliance and management methodologies.",
+      tech: ["Project Management", "Compliance"],
     },
   ] as Experience[],
 };

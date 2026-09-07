@@ -1,89 +1,74 @@
-"use client";
+"use client"; // Required for framer-motion in Next.js App Router
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/lib/data";
 
 export default function Hero() {
-  const { name, title, tagline } = PORTFOLIO_DATA.personal;
-
-  const scrollTo = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section
-      id="top"
-      className="relative flex min-h-screen items-center overflow-hidden pt-24"
+    <section 
+      id="home" 
+      className="flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
     >
-      {/* Floating ambient glow orbs, purely decorative */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[28rem] w-[28rem] -translate-x-1/2 animate-float rounded-full bg-indigo-500/10 blur-3xl"
-      />
+      {/* Profile Picture with Pop-in Animation */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-48 h-48 mx-auto mb-8 overflow-hidden rounded-full border-4 border-slate-200 dark:border-slate-800 shadow-xl"
+      >
+        <Image
+          src="/profile.jpg"
+          alt="Jofether Sampollo Mendoza profile picture"
+          fill
+          className="object-cover"
+          priority
+        />
+      </motion.div>
 
-      <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-foreground/80 backdrop-blur-md"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-          </span>
-          Available for new opportunities / full-time roles
-        </motion.div>
+      {/* Main Introduction with Slide-up Animation */}
+      <motion.h1 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6"
+      >
+        Hi, I'm Jofether Sampollo Mendoza
+      </motion.h1>
+      
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10"
+      >
+        A software engineer specializing in scalable full-stack development, cloud infrastructure, and AI integrations. Building robust applications to solve complex problems.
+      </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="max-w-4xl text-5xl font-bold leading-[1.1] tracking-tight sm:text-6xl md:text-7xl"
+      {/* Call to Action Buttons with Icons */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+      >
+        <Link 
+          href="#projects" 
+          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
         >
-          Hi, I&apos;m {name}.
-          <br />
-          <span className="text-gradient">{title}</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="mt-6 max-w-xl text-lg text-foreground/70"
+          View My Work
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </Link>
+        <Link 
+          href="#contact" 
+          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-transparent border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
         >
-          {tagline}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <a
-            href="#projects"
-            onClick={scrollTo("#projects")}
-            className="group flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-accent-light"
-          >
-            View Projects
-            <ArrowRight
-              size={16}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </a>
-          <a
-            href="#contact"
-            onClick={scrollTo("#contact")}
-            className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-md transition-all hover:scale-105 hover:bg-white/10"
-          >
-            <Mail size={16} />
-            Contact Me
-          </a>
-        </motion.div>
-      </div>
+          <Mail className="w-5 h-5" />
+          Contact Me
+        </Link>
+      </motion.div>
     </section>
   );
 }
