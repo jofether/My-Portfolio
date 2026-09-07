@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+  }
+
+  .dark {
+    --background: #030712;
+    --foreground: #f8fafc;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -29,7 +39,7 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0f17;
+    background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
     background: #1a2233;

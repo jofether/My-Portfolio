@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // === Core design-system colors (edit here to re-theme the whole site) ===
-        background: "#0B0F17", // deep slate/gray background
-        foreground: "#F3F4F6", // crisp off-white text
+        // === Core design-system colors mapped to CSS variables ===
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         accent: {
           DEFAULT: "#6366F1", // indigo
           cyan: "#06B6D4", // secondary accent

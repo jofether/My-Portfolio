@@ -4,28 +4,38 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { PORTFOLIO_DATA } from "@/lib/data";
 
 export default function Hero() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch by waiting until client-side mount
+  useEffect(() => setMounted(true), []);
+
   return (
     <section 
       id="home" 
       className="flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
     >
-      {/* Profile Picture with Pop-in Animation */}
+      {/* Profile Picture with Dynamic Theme Switching & Pop-in Animation */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative w-48 h-48 mx-auto mb-8 overflow-hidden rounded-full border-4 border-slate-200 dark:border-slate-800 shadow-xl"
+        className="relative w-48 h-48 mx-auto mb-8 overflow-hidden rounded-full border-4 border-slate-200 dark:border-slate-800 shadow-xl bg-slate-200 dark:bg-slate-800"
       >
-        <Image
-          src="/profile.jpg"
-          alt="Jofether Sampollo Mendoza profile picture"
-          fill
-          className="object-cover"
-          priority
-        />
+        {mounted && (
+          <Image
+            src={theme === 'dark' ? '/profile-dark.jpg' : '/profile-light.jpg'}
+            alt="Jofether Sampollo Mendoza profile picture"
+            fill
+            className="object-cover"
+            priority
+          />
+        )}
       </motion.div>
 
       {/* Main Introduction with Slide-up Animation */}
