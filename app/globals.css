@@ -4,13 +4,17 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #0f172a;
+    /* LIGHT MODE: Soft, sophisticated off-white (Tailwind Slate 50) */
+    --background: #f8fafc;
+    /* Deep slate text for high contrast without the harshness of pure black */
+    --foreground: #0f172a; 
   }
 
   .dark {
-    --background: #030712;
-    --foreground: #f8fafc;
+    /* DARK MODE: Rich, deep midnight slate (Tailwind Slate 950) */
+    --background: #020617;
+    /* Crisp, soft white text (Tailwind Slate 100) */
+    --foreground: #f1f5f9;
   }
 
   html {
@@ -42,7 +46,7 @@
     background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    background: #1a2233;
+    background: #1e293b; /* Adjusted for better contrast */
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -51,9 +55,9 @@
 }
 
 @layer components {
-  /* Reusable glass card surface used across the site */
+  /* Dynamic glass card: Light mode gets a soft white frosted glass, Dark mode gets a deep transparent glass */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+    @apply bg-white/60 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl shadow-sm dark:shadow-none;
   }
 
   /* Gradient text helper for headline highlights */
