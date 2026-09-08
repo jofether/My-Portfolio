@@ -1,4 +1,4 @@
-"use client"; // Required for framer-motion in Next.js App Router
+"use client";
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,28 +9,30 @@ import { useEffect, useState } from "react";
 import { PORTFOLIO_DATA } from "@/lib/data";
 
 export default function Hero() {
-  const { theme } = useTheme();
+  // Use resolvedTheme to handle the "system" default state correctly
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch by waiting until client-side mount
   useEffect(() => setMounted(true), []);
 
   return (
     <section 
       id="home" 
-      className="flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
+      // Removed hardcoded bg-white/dark:bg-slate-950 so it inherits your globals.css theme
+      className="flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 lg:px-8"
     >
-      {/* Profile Picture with Dynamic Theme Switching & Pop-in Animation */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative w-48 h-48 mx-auto mb-8 overflow-hidden rounded-full border-4 border-slate-200 dark:border-slate-800 shadow-xl bg-slate-200 dark:bg-slate-800"
+        className="relative w-56 h-56 sm:w-64 sm:h-64 mx-auto mb-8 overflow-hidden rounded-full border-4 border-slate-200 dark:border-slate-800 shadow-xl bg-slate-200 dark:bg-slate-800"
       >
         {mounted && (
           <Image
-            src={theme === 'dark' ? '/profile-dark.jpg' : '/profile-light.jpg'}
-            alt="Jofether Sampollo Mendoza profile picture"
+            // Ensure these match your actual files in the /public folder
+            src={resolvedTheme === 'dark' ? '/dark.jpg' : '/light.jpg'}
+            key={resolvedTheme}
+            alt={`${PORTFOLIO_DATA.personal.name} profile picture`}
             fill
             className="object-cover"
             priority
@@ -38,26 +40,24 @@ export default function Hero() {
         )}
       </motion.div>
 
-      {/* Main Introduction with Slide-up Animation */}
       <motion.h1 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6"
+        className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-6"
       >
-        Hi, I'm Jofether Sampollo Mendoza
+        Hi, I'm {PORTFOLIO_DATA.personal.name}
       </motion.h1>
       
       <motion.p 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10"
+        className="text-lg sm:text-xl text-foreground/70 max-w-2xl mx-auto mb-10"
       >
-        A software engineer specializing in scalable full-stack development, cloud infrastructure, and AI integrations. Building robust applications to solve complex problems.
+        {PORTFOLIO_DATA.personal.tagline}
       </motion.p>
 
-      {/* Call to Action Buttons with Icons */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -66,14 +66,14 @@ export default function Hero() {
       >
         <Link 
           href="#projects" 
-          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
+          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-accent text-white font-semibold rounded-lg shadow-md hover:bg-accent-light transition-colors"
         >
           View My Work
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Link>
         <Link 
           href="#contact" 
-          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-transparent border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+          className="group flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-transparent border-2 border-slate-300 dark:border-slate-700 text-foreground font-semibold rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
         >
           <Mail className="w-5 h-5" />
           Contact Me
