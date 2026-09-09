@@ -37,8 +37,15 @@ export const PORTFOLIO_DATA = {
     github: "https://github.com/jofether",
     linkedin: "https://linkedin.com/in/[YOUR_LINKEDIN_USERNAME]",
     twitter: "https://twitter.com/[YOUR_TWITTER_USERNAME]",
+    instagram: "https://instagram.com/[YOUR_INSTAGRAM_USERNAME]",
     resumeUrl: "/resume.pdf", 
   },
+
+  highlights: [
+    { icon: "Clock", label: "[X]+ Years of Experience" },
+    { icon: "Code2", label: "[YOUR_MAIN_LANGUAGE] Main Language" },
+    { icon: "Laptop", label: "[YOUR_ROLE] Developer" },
+  ],
 
   skills: [
     {
