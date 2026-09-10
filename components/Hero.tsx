@@ -49,6 +49,10 @@ export default function Hero() {
 
   const { name, title, tagline, github, linkedin, instagram, resumeUrl } =
     PORTFOLIO_DATA.personal;
+    
+  // Extract just the first name to use in the hero heading
+  const firstName = name.split(" ")[0];
+  
   const typedTitle = useTypewriter(title, 55);
 
   const socialLinks = [
@@ -68,7 +72,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="text-5xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-6xl"
           >
-            Hi, I&apos;m {name}
+            Hi, I&apos;m {firstName}
           </motion.h1>
 
           <motion.h2
@@ -126,7 +130,7 @@ export default function Hero() {
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map(({ href, icon: Icon, label }) => (
-                <a /* <-- FIX: Added the missing 'a' tag here */
+                <a 
                   key={label}
                   href={href}
                   target="_blank"
@@ -134,7 +138,7 @@ export default function Hero() {
                   aria-label={label}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-foreground/70 transition-colors hover:border-accent/40 hover:text-accent dark:border-slate-700"
                 >
-                  <Icon className="h-5 w-5" /> {/* FIX: Changed to standard Tailwind sizing */}
+                  <Icon className="h-5 w-5" /> 
                 </a>
               ))}
             </div>
