@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { PORTFOLIO_DATA } from "@/lib/data";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Chatbot from "@/components/Chatbot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,7 +44,10 @@ export default function RootLayout({
             aria-hidden="true"
             className="pointer-events-none fixed bottom-0 -right-40 -z-10 h-96 w-96 rounded-full bg-accent-cyan/10 blur-3xl"
           />
+          
           {children}
+          
+          <Chatbot /> {/* <-- 2. Place it here so it renders on top of all pages */}
         </ThemeProvider>
       </body>
     </html>

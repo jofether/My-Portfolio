@@ -21,7 +21,7 @@ export type Experience = {
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Jofether Sampollo Mendoza",
-    title: "Full-Stack Software Engineer",
+    title: "Software Engineer",
     tagline: "Building scalable backend architecture, cloud infrastructure, and AI-integrated applications.",
     bio: [
       "I am a software engineer who recently graduated in July 2026, specializing in robust application development and infrastructure. My technical foundation lies in integrating complex databases and cloud services to create seamless user experiences.",
@@ -38,9 +38,9 @@ export const PORTFOLIO_DATA = {
   },
 
   highlights: [
-    { icon: "Clock", label: "[X]+ Years of Experience" },
-    { icon: "Code2", label: "[YOUR_MAIN_LANGUAGE] Main Language" },
-    { icon: "Laptop", label: "[YOUR_ROLE] Developer" },
+    { icon: "Clock", label: "Fresh Graduate" },
+    { icon: "Code2", label: "Typescript Main Language" },
+    { icon: "Laptop", label: "Software Engineer" },
   ],
 
   skills: [
