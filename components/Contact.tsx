@@ -68,7 +68,9 @@ export default function Contact() {
               Have a role, project, or just want to say hi? Send a message and
               I&apos;ll get back to you at{" "}
               <a
-                href={`mailto:${PORTFOLIO_DATA.personal.email}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${PORTFOLIO_DATA.personal.email}&su=Software%20Engineering%20Opportunity%20-%20[Company%20Name]`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-accent-light hover:underline"
               >
                 {PORTFOLIO_DATA.personal.email}

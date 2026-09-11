@@ -29,7 +29,7 @@ export const PORTFOLIO_DATA = {
       "Beyond core full-stack development, I actively work with modern AI tools, including the Gemini API, to build intelligent, forward-thinking solutions."
     ],
     location: "Candelaria, Calabarzon, Philippines",
-    email: "[YOUR_EMAIL_HERE@example.com]",
+    email: "jofethersampollo@gmail.com",
     github: "https://github.com/jofether",
     linkedin: "https://linkedin.com/in/[YOUR_LINKEDIN_USERNAME]",
     twitter: "https://twitter.com/[YOUR_TWITTER_USERNAME]",

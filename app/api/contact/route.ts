@@ -1,22 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cert, getApps, initializeApp, type App } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import nodemailer from "nodemailer";
 
 // ============================================================================
 // CONTACT API ROUTE
 // ----------------------------------------------------------------------------
 // Writes contact-form submissions to the Firestore "messages" collection
-// using the Firebase Admin SDK (server-side, bypasses Firestore Security
-// Rules — keep these credentials secret, never NEXT_PUBLIC_*).
-//
-// Setup:
-// 1. Firebase Console > Project Settings > Service Accounts > Generate new
-//    private key. This downloads a JSON file.
-// 2. Add these three values from that JSON to `.env.local` (NOT committed):
-//      FIREBASE_PROJECT_ID=
-//      FIREBASE_CLIENT_EMAIL=
-//      FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-//    (Keep the literal \n sequences in the private key — they're unescaped below.)
+// using the Firebase Admin SDK and sends an email notification via Nodemailer.
 // ============================================================================
 
 function getAdminApp(): App | null {
@@ -25,7 +16,7 @@ function getAdminApp(): App | null {
   const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
   if (!projectId || !clientEmail || !privateKey) {
-    return null; // Not configured yet — handled gracefully below.
+    return null; 
   }
 
   return getApps().length
@@ -57,8 +48,6 @@ export async function POST(request: NextRequest) {
 
     const app = getAdminApp();
     if (!app) {
-      // Firebase Admin isn't configured yet (missing env vars). Return a
-      // clear error instead of a silent failure so it's obvious in dev.
       return NextResponse.json(
         {
           error:
@@ -69,11 +58,30 @@ export async function POST(request: NextRequest) {
     }
 
     const db = getFirestore(app);
+    
+    // 1. Save to Firestore
     await db.collection("messages").add({
       name: name.trim(),
       email: email.trim(),
       message: message.trim(),
       createdAt: new Date().toISOString(),
+    });
+
+    // 2. Send Email Notification
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: process.env.GMAIL_USER, 
+      replyTo: email.trim(),             
+      subject: `Portfolio Message from ${name.trim()}`,
+      text: `You have a new message from your portfolio website.\n\nName: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`,
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
