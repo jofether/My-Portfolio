@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { collection, getDocs } from "firebase/firestore";
+import { ChevronDown, Check } from "lucide-react";
 import { getDb } from "@/lib/firebase";
 import { PORTFOLIO_DATA, type Project } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
@@ -15,6 +16,26 @@ export default function Projects() {
   );
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close the technology dropdown on outside click or Escape.
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsDropdownOpen(false);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   // Attempt to load projects dynamically from Firestore's "projects"
   // collection. Falls back to the static PORTFOLIO_DATA.projects array
@@ -57,6 +78,14 @@ export default function Projects() {
     return [...BASE_FILTERS, ...Array.from(techSet)];
   }, [projects]);
 
+  // Everything except "All" / "Featured" — these live in the dropdown so
+  // the pinned row never grows unbounded as more projects/tech are added.
+  const techFilters = useMemo(
+    () => filters.filter((f) => !BASE_FILTERS.includes(f)),
+    [filters]
+  );
+  const isTechFilterActive = !BASE_FILTERS.includes(activeFilter);
+
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") return projects;
     if (activeFilter === "Featured") return projects.filter((p) => p.featured);
@@ -81,9 +110,12 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        {/* Filter tabs */}
-        <div className="mb-10 flex flex-wrap gap-2">
-          {filters.map((filter) => (
+        {/* Filter controls — "All" and "Featured" stay pinned and always
+            visible; every specific technology lives in the dropdown. This
+            guarantees every filter is reachable at a glance, with nothing
+            hidden behind a scroll or wrapped into a messy multi-row block. */}
+        <div className="mb-10 flex flex-wrap items-center gap-2">
+          {BASE_FILTERS.map((filter) => (
             <button
               key={filter}
               type="button"
@@ -97,6 +129,61 @@ export default function Projects() {
               {filter}
             </button>
           ))}
+
+          {/* Technology dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen((open) => !open)}
+              aria-haspopup="listbox"
+              aria-expanded={isDropdownOpen}
+              className={`flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm transition-colors ${
+                isTechFilterActive
+                  ? "border-accent bg-accent text-white"
+                  : "border-white/10 bg-white/5 text-foreground/70 hover:border-white/20 hover:text-foreground"
+              }`}
+            >
+              {isTechFilterActive ? activeFilter : "Technology"}
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {isDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  role="listbox"
+                  className="absolute left-0 top-full z-20 mt-2 max-h-72 w-56 overflow-y-auto rounded-xl border border-black/10 bg-background p-1.5 shadow-xl dark:border-white/10"
+                >
+                  {techFilters.map((tech) => (
+                    <button
+                      key={tech}
+                      type="button"
+                      role="option"
+                      aria-selected={activeFilter === tech}
+                      onClick={() => {
+                        setActiveFilter(tech);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                        activeFilter === tech
+                          ? "bg-accent text-white"
+                          : "text-foreground/70 hover:bg-black/5 hover:text-foreground dark:hover:bg-white/5"
+                      }`}
+                    >
+                      {tech}
+                      {activeFilter === tech && <Check size={14} />}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {loading ? (
