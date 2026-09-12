@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Bot, User } from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, User } from "lucide-react";
 
 type Message = {
   role: "user" | "ai";
@@ -56,86 +56,130 @@ export default function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            initial={{ opacity: 0, y: 24, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-            className="absolute bottom-16 right-0 mb-4 flex h-[28rem] w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-2xl backdrop-blur-md dark:border-slate-800 dark:bg-[#0B0F17]/95 sm:w-96"
+            exit={{ opacity: 0, y: 16, scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 300, damping: 28, mass: 0.9 }}
+            className="absolute bottom-[4.5rem] right-0 flex h-[30rem] w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/70 shadow-2xl shadow-black/10 backdrop-blur-2xl dark:border-white/10 dark:bg-[#0B0F17]/80 dark:shadow-black/40 sm:w-[23rem]"
           >
+            {/* Ambient accent glow inside the header, purely decorative */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-16 left-1/2 h-32 w-56 -translate-x-1/2 rounded-full bg-accent/20 blur-3xl"
+            />
+
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex items-center gap-2">
-                <Bot className="h-5 w-5 text-accent" />
-                <span className="font-semibold text-foreground">AI Assistant</span>
+            <div className="relative flex items-center justify-between border-b border-slate-200/70 px-5 py-4 dark:border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-accent-cyan text-white shadow-md shadow-accent/30">
+                  <Sparkles className="h-4.5 w-4.5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold leading-tight text-foreground">
+                    AI Assistant
+                  </p>
+                  <span className="flex items-center gap-1.5 text-[11px] font-medium text-foreground/50">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    </span>
+                    Online
+                  </span>
+                </div>
               </div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.08, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 onClick={() => setIsOpen(false)}
-                className="rounded-lg p-1 text-foreground/60 transition-colors hover:bg-slate-200 hover:text-foreground dark:hover:bg-slate-800"
+                aria-label="Close chat"
+                className="rounded-lg p-1.5 text-foreground/50 transition-colors hover:bg-slate-900/5 hover:text-foreground dark:hover:bg-white/10"
               >
-                <X className="h-5 w-5" />
-              </button>
+                <X className="h-4.5 w-4.5" />
+              </motion.button>
             </div>
 
             {/* Chat History */}
-            <div className="flex-1 overflow-y-auto p-4">
-              <div className="flex flex-col gap-4">
+            <div className="relative flex-1 overflow-y-auto overflow-x-hidden px-4 py-4">
+              <div className="flex min-w-0 flex-col gap-3">
                 {messages.map((msg, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
-                    className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className={`flex min-w-0 items-end gap-2 ${
+                      msg.role === "user" ? "flex-row-reverse" : "flex-row"
+                    }`}
                   >
                     <div
-                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
-                        msg.role === "user" ? "bg-accent text-white" : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                      className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full ${
+                        msg.role === "user"
+                          ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                          : "bg-gradient-to-br from-accent to-accent-cyan text-white"
                       }`}
                     >
-                      {msg.role === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+                      {msg.role === "user" ? (
+                        <User className="h-3.5 w-3.5" />
+                      ) : (
+                        <Sparkles className="h-3.5 w-3.5" />
+                      )}
                     </div>
                     <div
-                      className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm ${
+                      className={`min-w-0 max-w-[78%] break-words px-4 py-2.5 text-[13.5px] leading-relaxed shadow-sm [overflow-wrap:anywhere] ${
                         msg.role === "user"
-                          ? "bg-accent text-white"
-                          : "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
+                          ? "rounded-2xl rounded-br-md bg-accent font-medium text-white"
+                          : "rounded-2xl rounded-bl-md border border-slate-200/70 bg-white/80 text-foreground/90 dark:border-white/10 dark:bg-white/[0.06]"
                       }`}
                     >
                       {msg.content}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
                 {isLoading && (
-                  <div className="flex gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      <Bot className="h-4 w-4" />
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-end gap-2"
+                  >
+                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent-cyan text-white">
+                      <Sparkles className="h-3.5 w-3.5" />
                     </div>
-                    <div className="flex items-center gap-1 rounded-2xl bg-slate-100 px-4 py-3 dark:bg-slate-800">
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-400"></span>
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-400 delay-75"></span>
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-400 delay-150"></span>
+                    <div className="flex items-center gap-1 rounded-2xl rounded-bl-md border border-slate-200/70 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/40" />
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/40 [animation-delay:120ms]" />
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/40 [animation-delay:240ms]" />
                     </div>
-                  </div>
+                  </motion.div>
                 )}
                 <div ref={messagesEndRef} />
               </div>
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSend} className="border-t border-slate-200 p-3 dark:border-slate-800">
-              <div className="flex items-center gap-2">
+            <form
+              onSubmit={handleSend}
+              className="border-t border-slate-200/70 p-3 dark:border-white/10"
+            >
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200/80 bg-white/70 px-1.5 py-1.5 shadow-sm transition-colors focus-within:border-accent/50 dark:border-white/10 dark:bg-white/[0.04]">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask about my skills..."
-                  className="flex-1 rounded-xl border border-slate-200 bg-transparent px-4 py-2 text-sm text-foreground focus:border-accent focus:outline-none dark:border-slate-700"
+                  className="flex-1 bg-transparent px-3 py-1.5 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none"
                   disabled={isLoading}
                 />
-                <button
+                <motion.button
+                  whileHover={{ scale: input.trim() ? 1.06 : 1 }}
+                  whileTap={{ scale: 0.92 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-white transition-colors hover:bg-accent-light disabled:opacity-50"
+                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-accent text-white shadow-sm shadow-accent/30 transition-colors hover:bg-accent-light disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
                 >
-                  <Send className="h-4 w-4" />
-                </button>
+                  <Send className="h-3.5 w-3.5" />
+                </motion.button>
               </div>
             </form>
           </motion.div>
@@ -143,13 +187,31 @@ export default function Chatbot() {
       </AnimatePresence>
 
       {/* Floating Toggle Button */}
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white shadow-lg shadow-accent/30 transition-transform hover:scale-105 active:scale-95"
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent-cyan text-white shadow-lg shadow-accent/40"
         aria-label="Toggle chat"
       >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-      </button>
+        {/* Idle pulse ring when closed, to draw the eye without being loud */}
+        {!isOpen && (
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/40" />
+        )}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={isOpen ? "close" : "open"}
+            initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: 45, scale: 0.6 }}
+            transition={{ duration: 0.2 }}
+            className="relative flex items-center justify-center"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+          </motion.span>
+        </AnimatePresence>
+      </motion.button>
     </div>
   );
 }
