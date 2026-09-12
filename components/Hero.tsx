@@ -167,7 +167,7 @@ export default function Hero() {
           </div>
 
           {/* Floating highlight cards */}
-          <div className="absolute -left-4 bottom-6 flex w-[85%] flex-col gap-3 sm:-left-8 sm:w-[75%]">
+          <div className="absolute bottom-[-9%] left-[-24%] flex w-[64%] flex-col gap-3">
             {PORTFOLIO_DATA.highlights.map((item, i) => {
               const Icon = ICONS[item.icon] ?? Clock;
               return (
