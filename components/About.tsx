@@ -21,7 +21,7 @@ export default function About() {
             About
           </p>
           <h2 className="text-3xl font-bold sm:text-4xl">
-            The short version, and the long one.
+            Behind the Code.
           </h2>
         </motion.div>
 

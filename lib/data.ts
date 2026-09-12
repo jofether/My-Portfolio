@@ -24,22 +24,22 @@ export const PORTFOLIO_DATA = {
     title: "Software Engineer",
     tagline: "Building scalable backend architecture, cloud infrastructure, and AI-integrated applications.",
     bio: [
-      "I am a software engineer who recently graduated in July 2026, specializing in robust application development and infrastructure. My technical foundation lies in integrating complex databases and cloud services to create seamless user experiences.",
-      "My engineering approach emphasizes reliable deployment and scalable architecture. I leverage tools like Docker for containerization and Google Cloud Platform for comprehensive service management, ensuring applications perform efficiently under load.",
-      "Beyond core full-stack development, I actively work with modern AI tools, including the Gemini API, to build intelligent, forward-thinking solutions."
+      "I am a Software Engineer who recently graduated in July 2026, specializing in full-stack development, cloud infrastructure, and AI integration. My technical foundation is built on delivering secure, high-performance web applications tailored to solve complex organizational challenges.",
+      "Drawing from a unique background in operational management and financial administration, I approach software engineering with a systems-level mindset. Whether I am architecting role-based access controls in PHP, managing databases in Firebase, or deploying containerized applications via Docker and Google Cloud Platform (GCP), I prioritize scalable and efficient solutions.",
+      "Leveraging modern frameworks like Next.js and TypeScript alongside tools like the Gemini API, I build intelligent, forward-thinking solutions that bridge administrative efficiency with seamless digital user experiences."
     ],
-    location: "Candelaria, Calabarzon, Philippines",
+    location: "Candelaria, Quezon, Philippines",
     email: "jofethersampollo@gmail.com",
     github: "https://github.com/jofether",
     linkedin: "https://www.linkedin.com/in/jofether-mendoza-ba8369436",
-    twitter: "https://twitter.com/[YOUR_TWITTER_USERNAME]",
-    instagram: "https://instagram.com/[YOUR_INSTAGRAM_USERNAME]",
+    twitter: "https://x.com/yomanyoman12345",
+    instagram: "https://www.instagram.com/arkaybnidyetong/",
     resumeUrl: "/resume.pdf", 
   },
 
   highlights: [
     { icon: "Clock", label: "Fresh Graduate" },
-    { icon: "Code2", label: "Typescript Main Language" },
+    { icon: "Code2", label: "TypeScript Main Language" },
     { icon: "Laptop", label: "Software Engineer" },
   ],
 
@@ -47,8 +47,8 @@ export const PORTFOLIO_DATA = {
     {
       category: "Frontend",
       items: [
-        "React",
         "Next.js",
+        "React",
         "TypeScript",
         "Tailwind CSS",
         "Framer Motion"
@@ -58,20 +58,20 @@ export const PORTFOLIO_DATA = {
       category: "Backend & Cloud",
       items: [
         "Node.js",
+        "PHP",
         "Firebase",
         "Google Cloud Platform (GCP)",
-        "Database Management",
+        "SQL",
         "REST APIs"
       ],
     },
     {
       category: "Tools, DevOps & AI",
       items: [
-        "Git", 
-        "GitHub Actions", 
+        "Git & GitHub", 
         "Docker", 
         "Gemini API", 
-        "Zotero"
+        "GitHub Actions"
       ],
     },
   ],

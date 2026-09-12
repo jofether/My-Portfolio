@@ -24,22 +24,44 @@ const ICONS: Record<string, React.ElementType> = {
   Laptop,
 };
 
-// Simple typewriter effect for the role/title line under the headline.
-function useTypewriter(text: string, speed = 60) {
-  const [displayed, setDisplayed] = useState("");
+// Advanced typewriter hook that loops back and forth through an array of texts.
+function useTypewriter(words: string[], typingSpeed = 70, deletingSpeed = 40, pauseTime = 1500) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    setDisplayed("");
-    let i = 0;
-    const interval = setInterval(() => {
-      i += 1;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) clearInterval(interval);
-    }, speed);
-    return () => clearInterval(interval);
-  }, [text, speed]);
+    const currentWord = words[wordIndex % words.length];
+    
+    let timer: NodeJS.Timeout;
 
-  return displayed;
+    if (!isDeleting) {
+      // Typing forward
+      timer = setTimeout(() => {
+        setDisplayedText(currentWord.substring(0, displayedText.length + 1));
+        
+        // If word is completely typed, pause before deleting
+        if (displayedText === currentWord) {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      }, typingSpeed);
+    } else {
+      // Deleting backward
+      timer = setTimeout(() => {
+        setDisplayedText(currentWord.substring(0, displayedText.length - 1));
+        
+        // If word is completely deleted, move to the next word
+        if (displayedText === "") {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }, deletingSpeed);
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime]);
+
+  return displayedText;
 }
 
 export default function Hero() {
@@ -53,7 +75,9 @@ export default function Hero() {
   // Extract just the first name to use in the hero heading
   const firstName = name.split(" ")[0];
   
-  const typedTitle = useTypewriter(title, 55);
+  // Array of roles to cycle back and forth through
+  const roles = [title, "Full-Stack Developer", "Cloud & AI Enthusiast"];
+  const typedTitle = useTypewriter(roles);
 
   const socialLinks = [
     { href: instagram, icon: Instagram, label: "Instagram" },
@@ -63,7 +87,7 @@ export default function Hero() {
 
   return (
     <section id="home" className="overflow-hidden px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2 lg:gap-8">
+      <div className="mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2 lg:gap-8">
         {/* ---------------- Left column: text ---------------- */}
         <div className="text-center lg:text-left">
           <motion.h1

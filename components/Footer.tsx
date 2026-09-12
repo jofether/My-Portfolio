@@ -15,7 +15,7 @@ export default function Footer() {
     { href: github, label: "GitHub", icon: Github },
     { href: linkedin, label: "LinkedIn", icon: Linkedin },
     { href: twitter, label: "Twitter / X", icon: Twitter },
-    { href: `mailto:${email}`, label: "Email", icon: Mail },
+    { href: `https://mail.google.com/mail/?view=cm&fs=1&to=${PORTFOLIO_DATA.personal.email}&su=Software%20Engineering%20Opportunity%20-%20[Company%20Name]`, label: "Email", icon: Mail },
   ];
 
   return (
