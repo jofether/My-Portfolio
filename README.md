@@ -1,101 +1,72 @@
-# Developer Portfolio
+# Jofether Sampollo Mendoza — Portfolio Website
 
-A dark-mode, glassmorphism developer portfolio built with Next.js 14 (App
-Router), Tailwind CSS, Framer Motion, Lucide React icons, and Firebase
-Firestore.
+A modern, dark-mode developer portfolio built with Next.js 14 (App Router), TypeScript: 9, Tailwind CSS, and Framer Motion, featuring cloud infrastructure integration and interactive UI elements.
 
-## Stack
+---
 
-- **Framework:** Next.js 14 (App Router, TypeScript)
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Animation:** Framer Motion
-- **Icons:** lucide-react
-- **Backend:** Firebase Cloud Firestore (contact form + optional dynamic
-  project loading)
-- **Deployment target:** Vercel
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Backend & Database:** Firebase Firestore (Contact form and data handling)
+- **Deployment:** Vercel
 
-## Getting started
+---
 
-```bash
+## 🛠️ Featured Projects
+
+1. **SmartQuiz** — Comprehensive application featuring deep integration with Firebase services and automated workflows via GitHub Actions.
+2. **CryptoCrafters** — Collaborative software development project focused on secure backend database architecture and data management.
+3. **VistaLingua** — Advanced cloud-integrated software solution leveraging scalable performance architectures.
+
+---
+
+## ⚙️ Getting Started
+
+Follow these steps to run the project locally on your machine:
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/jofether/my-portfolio.git](https://github.com/jofether/my-portfolio.git)
+   cd my-portfolio
+Install dependencies:
+
+Bash
 npm install
+Run the development server:
+
+Bash
 npm run dev
-```
+Open http://localhost:3000 in your browser to view the application.
 
-Open http://localhost:3000.
-
-## 1. Personalize your content
-
-Everything about you lives in **`lib/data.ts`** — name, title, bio, skills,
-projects, and work experience. Every placeholder is wrapped in
-`[BRACKETS]`; search the file for `[` to find every field to fill in.
-
-## 2. Connect Firebase
-
-The contact form and the "load projects dynamically" feature in
-`components/Projects.tsx` both use Firebase, but the site works and looks
-complete without it — the contact form will show a clear error instead of
-failing silently, and the project grid automatically falls back to the
-static list in `lib/data.ts`.
-
-**Client SDK (`lib/firebase.ts`)** — used by `Projects.tsx` to *read* from
-the `projects` Firestore collection:
-
-1. Create a project at https://console.firebase.google.com and enable
-   **Cloud Firestore** (Build → Firestore Database → Create database).
-2. Register a Web App in Project Settings → General → "Your apps", and copy
-   the config values.
-3. Copy `.env.local.example` to `.env.local` and fill in the
-   `NEXT_PUBLIC_FIREBASE_*` values.
-4. (Optional) Add documents to a `projects` collection in Firestore, shaped
-   like the `Project` type in `lib/data.ts`, to have them override the
-   static fallback list automatically.
-
-**Admin SDK (`app/api/contact/route.ts`)** — used server-side to *write*
-contact-form submissions to the `messages` collection:
-
-1. Firebase Console → Project Settings → Service Accounts → "Generate new
-   private key". This downloads a JSON file — keep it secret.
-2. Add three more values to `.env.local` (these are server-only, no
-   `NEXT_PUBLIC_` prefix):
-   ```
-   FIREBASE_PROJECT_ID=
-   FIREBASE_CLIENT_EMAIL=
-   FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-   ```
-   Keep the private key's `\n` sequences literal — the route unescapes them
-   at runtime.
-
-## 3. Add your résumé
-
-Drop a PDF at `public/resume.pdf` (or update `personal.resumeUrl` in
-`lib/data.ts` to point elsewhere).
-
-## 4. Deploy to Vercel
-
-```bash
-npx vercel
-```
-
-Add the same environment variables from `.env.local` to your Vercel
-project's Settings → Environment Variables before deploying.
-
-## Project structure
-
-```
+📂 Project Structure
+Plaintext
 /app
-  layout.tsx        — global layout, fonts, metadata, dark theme
-  page.tsx           — assembles all sections
-  api/contact/route.ts — writes contact submissions to Firestore
+  layout.tsx          — Global layout, metadata, and theme provider
+  page.tsx            — Main entry point assembling all portfolio sections
+  api/
+    chat/             — Chatbot route configuration
+    contact/          — Backend handler for contact form submissions
 /components
-  Navbar.tsx, Hero.tsx, About.tsx, Projects.tsx, ProjectCard.tsx,
-  Experience.tsx, Contact.tsx, Footer.tsx
+  Navbar.tsx          — Floating glassmorphic navigation header
+  Hero.tsx            — Intro section featuring dynamic typewriter titles
+  About.tsx           — Professional background and structured technical skills
+  Projects.tsx        — Project showcase grid with interactive filters
+  ProjectCard.tsx     — Individual project card components
+  Experience.tsx      — Timeline of professional and operational background
+  Contact.tsx         — Interactive messaging and contact form
+  Footer.tsx          — Social links, direct Gmail routing, and back-to-top
 /lib
-  firebase.ts        — Firebase client SDK init
-  data.ts            — all placeholder content lives here
-```
+  firebase.ts         — Firebase client SDK configuration
+  data.ts             — Centralized portfolio content and metadata
+📄 Résumé Integration
+Your active PDF resume is stored in the public directory at public/resume.pdf, linked directly to the navbar and hero action buttons.
 
-## Accessibility & performance notes
+🌐 Deployment
+This project is optimized for deployment on Vercel:
 
-- Keyboard focus states are visible on every interactive element.
-- `prefers-reduced-motion` is respected — animations shorten to near-zero.
-- Images use `next/image` with responsive `sizes` for optimal loading.
+Bash
+npx vercel
