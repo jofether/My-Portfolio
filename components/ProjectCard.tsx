@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Star } from "lucide-react";
+import { FileText, Github, Star } from "lucide-react";
 import type { Project } from "@/lib/data";
 
 export default function ProjectCard({
@@ -59,24 +59,28 @@ export default function ProjectCard({
         </div>
 
         <div className="flex items-center gap-4 border-t border-white/10 pt-4">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-sm text-foreground/80 transition-colors hover:text-accent-light"
-          >
-            <ExternalLink size={15} />
-            Live Demo
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-sm text-foreground/80 transition-colors hover:text-accent-light"
-          >
-            <Github size={15} />
-            Source
-          </a>
+          {project.githubUrl && !project.githubUrl.includes("[") && (
+            <>
+              <a
+                href={`${project.githubUrl}#readme`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-foreground/80 transition-colors hover:text-accent-light"
+              >
+                <FileText size={15} />
+                README
+              </a>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-foreground/80 transition-colors hover:text-accent-light"
+              >
+                <Github size={15} />
+                Source
+              </a>
+            </>
+          )}
         </div>
       </div>
     </motion.div>
