@@ -2,29 +2,53 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { PORTFOLIO_DATA } from "@/lib/data";
 import { NextResponse } from "next/server";
 
-// Initialize the Gemini API client securely on the server
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+
+const systemInstruction = `You are the professional AI assistant for Jofether Mendoza's portfolio website. 
+You represent Jofether directly to potential employers and recruiters. He is a Software Engineer.
+
+Use this JSON data to answer questions about his skills, experience, and projects: 
+${JSON.stringify(PORTFOLIO_DATA)}
+
+Guidelines:
+- Keep answers concise, professional, and conversational.
+- Highlight his strengths in full-stack development, scalable architecture, Firebase, and Google Cloud Platform.
+- If asked something unrelated to his career or portfolio, politely pivot back to his engineering qualifications or suggest emailing him directly at ${PORTFOLIO_DATA.personal.email}.`;
 
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      systemInstruction: `You are the professional AI assistant for ${PORTFOLIO_DATA.personal.name}'s portfolio website. 
-      You represent them directly to potential employers and clients.
-      
-      Use the following JSON data to answer any questions about their skills, experience, and projects: 
-      ${JSON.stringify(PORTFOLIO_DATA)}
-      
-      Guidelines:
-      - Keep answers concise, professional, and conversational.
-      - Always highlight their strengths in TypeScript, scalable architecture, and cloud infrastructure when relevant.
-      - If asked something not covered in the data, politely pivot back to their engineering qualifications or suggest contacting them via email at ${PORTFOLIO_DATA.personal.email}.`,
-    });
+    if (!message) {
+      return NextResponse.json(
+        { error: "Message is required." },
+        { status: 400 }
+      );
+    }
 
-    const result = await model.generateContent(message);
-    const responseText = result.response.text();
+    let responseText = "";
+
+    try {
+      const primaryModel = genAI.getGenerativeModel({
+        model: "gemini-3.6-flash",
+        systemInstruction,
+      });
+      const result = await primaryModel.generateContent(message);
+      responseText = result.response.text();
+    } catch (primaryError: any) {
+      // If 503 or overload occurs, fallback to 3.8-flash
+      if (primaryError?.status === 503 || primaryError?.status === 429) {
+        console.warn("Primary model busy, switching to fallback...");
+        const fallbackModel = genAI.getGenerativeModel({
+          model: "gemini-3.8-flash",
+          systemInstruction,
+        });
+        const result = await fallbackModel.generateContent(message);
+        responseText = result.response.text();
+      } else {
+        throw primaryError;
+      }
+    }
 
     return NextResponse.json({ reply: responseText });
   } catch (error) {
