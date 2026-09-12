@@ -86,7 +86,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="overflow-hidden px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <section id="home" className="overflow-hidden px-4 pb-20 pt-28 sm:px-6 sm:pt-44 lg:px-8">
       <div className="mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2 lg:gap-8">
         {/* ---------------- Left column: text ---------------- */}
         <div className="text-center lg:text-left">

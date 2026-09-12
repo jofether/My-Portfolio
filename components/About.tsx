@@ -8,7 +8,7 @@ export default function About() {
   const { bio, location } = PORTFOLIO_DATA.personal;
 
   return (
-    <section id="about" className="py-28">
+    <section id="about" className="py-16">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
