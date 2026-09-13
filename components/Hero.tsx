@@ -86,10 +86,10 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="overflow-hidden px-4 pb-20 pt-28 sm:px-6 sm:pt-44 lg:px-8">
-      <div className="mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2 lg:gap-8">
+    <section id="home" className="overflow-hidden px-4 pb-10 pt-28 sm:px-6 sm:pb-20 sm:pt-44 lg:px-8">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-8">
         {/* ---------------- Left column: text ---------------- */}
-        <div className="text-center lg:text-left">
+        <div className="order-2 text-center lg:order-1 lg:text-left">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-foreground/70 transition-colors hover:border-accent/40 hover:text-accent dark:border-slate-700"
+                  className="text-foreground/60 transition-colors hover:text-accent"
                 >
                   <Icon className="h-5 w-5" /> 
                 </a>
@@ -174,8 +174,9 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md"
+          className="relative order-1 mx-auto mb-10 aspect-square w-full max-w-[240px] sm:max-w-[320px] lg:order-2 lg:mb-0 lg:max-w-md"
         >
+          {/* Image Container */}
           <div className="relative h-full w-full overflow-hidden rounded-full bg-slate-200 shadow-xl dark:bg-slate-800">
             {mounted && (
               <Image
@@ -183,15 +184,15 @@ export default function Hero() {
                 key={resolvedTheme}
                 alt={`${name} profile picture`}
                 fill
-                sizes="(max-width: 768px) 320px, 420px"
+                sizes="(max-width: 768px) 240px, 420px"
                 className="object-cover"
                 priority
               />
             )}
           </div>
 
-          {/* Floating highlight cards */}
-          <div className="absolute bottom-[-9%] left-[-24%] flex w-[64%] flex-col gap-3">
+          {/* Floating highlight cards - Pushed further left to match desktop proportions */}
+          <div className="absolute -bottom-4 -left-10 z-20 flex flex-col gap-1.5 sm:-bottom-6 sm:-left-14 sm:gap-2 lg:-bottom-8 lg:-left-16 lg:gap-3">
             {PORTFOLIO_DATA.highlights.map((item, i) => {
               const Icon = ICONS[item.icon] ?? Clock;
               return (
@@ -200,12 +201,12 @@ export default function Hero() {
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
-                  className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/95"
+                  className="flex w-max items-center gap-2 rounded-xl border border-slate-200 bg-white/95 p-1.5 pr-3 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/95 sm:rounded-2xl sm:gap-2.5 sm:p-2 sm:pr-4 lg:gap-3 lg:p-3 lg:pr-5"
                 >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900">
-                    <Icon className="h-4 w-4" />
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md bg-slate-900 text-white dark:bg-white dark:text-slate-900 sm:h-8 sm:w-8 sm:rounded-lg lg:h-9 lg:w-9">
+                    <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
                   </span>
-                  <span className="text-sm font-semibold text-foreground">
+                  <span className="text-[10px] font-semibold text-foreground sm:text-xs lg:text-sm">
                     {item.label}
                   </span>
                 </motion.div>

@@ -29,6 +29,13 @@ export default function Navbar() {
 
   // Close the mobile menu whenever a nav link is clicked.
   const handleLinkClick = () => setIsOpen(false);
+  const handleNavClick = (href: string) => (e: React.MouseEvent) => {
+  e.preventDefault();
+  setIsOpen(false);
+  requestAnimationFrame(() => {
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  });
+};
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
@@ -39,7 +46,7 @@ export default function Navbar() {
       >
         <a
           href="#top"
-          className="text-sm font-semibold tracking-tight text-foreground"
+          className="min-w-0 max-w-[55%] flex-shrink truncate text-sm font-semibold tracking-tight text-foreground md:max-w-none"
         >
           {PORTFOLIO_DATA.personal.name}
         </a>
@@ -50,8 +57,9 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-foreground/70 transition-colors hover:text-foreground"
-              >
+  onClick={handleNavClick(link.href)}
+  className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+>
                 {link.label}
               </a>
             </li>
@@ -81,7 +89,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Controls */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex flex-shrink-0 items-center gap-2 md:hidden">
           {mounted && (
             <button
               onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
@@ -118,9 +126,9 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={handleLinkClick}
-                    className="block rounded-lg px-3 py-3 text-base text-foreground/80 transition-colors hover:bg-white/5 hover:text-foreground"
-                  >
+  onClick={handleNavClick(link.href)}
+  className="block rounded-lg px-3 py-3 text-base text-foreground/80 transition-colors hover:bg-white/5 hover:text-foreground"
+>
                     {link.label}
                   </a>
                 </li>

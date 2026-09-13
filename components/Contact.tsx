@@ -48,7 +48,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16">
+    <section id="contact" className="py-10 md:py-20">
       <div className="section-container">
         <div className="glass-card mx-auto max-w-2xl p-8 sm:p-10">
           <motion.div

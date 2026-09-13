@@ -6,7 +6,7 @@ import { PORTFOLIO_DATA } from "@/lib/data";
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-16">
+    <section id="experience" className="py-10 md:py-20">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ export default function Experience() {
                 className="relative"
               >
                 {/* Node */}
-                <span className="absolute -left-[2.65rem] top-1 flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-[#0B0F17] text-accent-light sm:-left-[3.15rem]">
+                <span className="absolute -left-12 top-1 flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-background text-accent-light sm:-left-14">
                   <Briefcase size={14} />
                 </span>
 

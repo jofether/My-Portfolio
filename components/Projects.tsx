@@ -93,7 +93,7 @@ export default function Projects() {
   }, [projects, activeFilter]);
 
   return (
-    <section id="projects" className="py-16">
+    <section id="projects" className="py-10 md:py-16">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
