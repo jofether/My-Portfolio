@@ -28,12 +28,22 @@ export default function Navbar() {
   }, []);
 
   const handleLinkClick = () => setIsOpen(false);
+  
   const handleNavClick = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setIsOpen(false);
-    requestAnimationFrame(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-    });
+    
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        // Reduced offset from 100 to 75 for a tighter fit
+        const offsetPosition = element.getBoundingClientRect().top + window.scrollY - 75;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 50);
   };
 
   return (
