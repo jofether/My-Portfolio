@@ -27,7 +27,6 @@ export default function ProjectCard({
         </span>
       )}
 
-      {/* Image preview with hover zoom */}
       <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={project.imageUrl}
@@ -51,14 +50,14 @@ export default function ProjectCard({
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-foreground/70"
+              className="rounded-full border border-slate-200 bg-slate-100/50 px-2.5 py-0.5 text-[11px] text-foreground/70 dark:border-white/10 dark:bg-white/5"
             >
               {tech}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center gap-4 border-t border-white/10 pt-4">
+        <div className="flex items-center gap-4 border-t border-slate-200 pt-4 dark:border-white/10">
           {project.githubUrl && !project.githubUrl.includes("[") && (
             <>
               <a

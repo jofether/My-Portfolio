@@ -96,7 +96,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Jane Doe"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:border-accent/50"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-accent/50 dark:border-white/10 dark:bg-white/5 dark:placeholder:text-foreground/30"
                 />
               </div>
               <div>
@@ -114,7 +114,7 @@ export default function Contact() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="jane@example.com"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:border-accent/50"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-accent/50 dark:border-white/10 dark:bg-white/5 dark:placeholder:text-foreground/30"
                 />
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function Contact() {
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Tell me a bit about your project or opportunity..."
-                className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:border-accent/50"
+                className="w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-accent/50 dark:border-white/10 dark:bg-white/5 dark:placeholder:text-foreground/30"
               />
             </div>
 

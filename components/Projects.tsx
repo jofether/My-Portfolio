@@ -123,7 +123,7 @@ export default function Projects() {
               className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
                 activeFilter === filter
                   ? "border-accent bg-accent text-white"
-                  : "border-white/10 bg-white/5 text-foreground/70 hover:border-white/20 hover:text-foreground"
+                  : "border-slate-200 bg-slate-100/50 text-foreground/70 hover:border-slate-300 hover:text-foreground dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
               }`}
             >
               {filter}
@@ -140,7 +140,7 @@ export default function Projects() {
               className={`flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm transition-colors ${
                 isTechFilterActive
                   ? "border-accent bg-accent text-white"
-                  : "border-white/10 bg-white/5 text-foreground/70 hover:border-white/20 hover:text-foreground"
+                  : "border-slate-200 bg-slate-100/50 text-foreground/70 hover:border-slate-300 hover:text-foreground dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
               }`}
             >
               {isTechFilterActive ? activeFilter : "Technology"}

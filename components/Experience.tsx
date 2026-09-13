@@ -21,8 +21,7 @@ export default function Experience() {
           <h2 className="text-3xl font-bold sm:text-4xl">Where I&apos;ve worked.</h2>
         </motion.div>
 
-        <div className="relative border-l border-white/10 pl-8 sm:pl-10">
-          {/* Glowing accent line overlay */}
+        <div className="relative border-l border-slate-200 pl-8 dark:border-white/10 sm:pl-10">
           <div
             aria-hidden="true"
             className="absolute -left-px top-0 h-full w-px bg-gradient-to-b from-accent via-accent-cyan/60 to-transparent"
@@ -38,7 +37,6 @@ export default function Experience() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative"
               >
-                {/* Node */}
                 <span className="absolute -left-12 top-1 flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-background text-accent-light sm:-left-14">
                   <Briefcase size={14} />
                 </span>
@@ -57,7 +55,7 @@ export default function Experience() {
                   {item.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-foreground/70"
+                      className="rounded-full border border-slate-200 bg-slate-100/50 px-2.5 py-0.5 text-[11px] text-foreground/70 dark:border-white/10 dark:bg-white/5"
                     >
                       {tech}
                     </span>
