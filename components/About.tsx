@@ -62,7 +62,7 @@ export default function About() {
                   {group.items.map((skill) => (
                     <span
                       key={skill}
-                      className="cursor-default rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-foreground/80 transition-transform hover:scale-105 hover:border-accent/40 hover:text-foreground"
+                      className="cursor-default rounded-full border border-slate-200 bg-slate-100/50 px-3 py-1 text-xs text-foreground/80 transition-transform hover:scale-105 hover:border-accent/40 hover:text-foreground dark:border-white/10 dark:bg-white/5"
                     >
                       {skill}
                     </span>
